@@ -17,3 +17,15 @@
     - func TestXXX() will make tests that run
     - func ExampleXXX() {//Output: X} will create autodocced examples that will also run if output comment is provided
     - func BenchmarkXXX allows you to run b.N times and measures how long it takes...
+
+- Advantages of go:
+    - type-safety at compile-time
+    - compiles to assembly w/out a JIT like JVM
+    - simple yet robust test framework
+    - auto documentation
+-  other advantages:
+    - Go has faster cold start benchmarks for serverless functions.
+    - Go is compiled and type safe
+    - Go has a testing framework built into the SDK
+    - JS/TS has better convenience built into the SDK for Arrays and Maps, e.g arrays can behave like streams
+    - JS/TS enables programmers to dip into both sides of the stack
