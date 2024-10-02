@@ -3,3 +3,6 @@ go mod init hello # create a new file called go.mod. seems to take every .go fil
 go test # runs testing. I guess any *_test.go will be ran with 
 
 go test -bench=. # runs with benchmark what will pick an iteration for b.N
+
+go test -cover # identifies areas of code that have no coverage
+
