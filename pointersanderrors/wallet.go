@@ -5,10 +5,10 @@ type Wallet struct {
 }
 
 // this will fail since w is copied. we actually need a pointer
-func (w Wallet) Deposit(amount int) {
+func (w *Wallet) Deposit(amount int) {
 	w.balance += amount
 }
 
-func (w Wallet) Balance() int {
-	return w.balance
+func (w *Wallet) Balance() int {
+	return w.balance // explicit dereference is done here
 }
