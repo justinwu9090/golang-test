@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
+	"time"
 )
 
 // goal:
@@ -11,6 +12,23 @@ import (
 // print 3,2,1 and go!
 // wait a second between each line
 // spys are a kind of "mock" which can record how a dependency is used. They can record the arguments sent in, how many times it's called, etc.. in our case, we keep track how many times Sleep() is called so we can check it in our test.
+
+/*
+The advantages of mocking are:
+	test that code pauses
+	calling a service that will fail  (??)
+	test your system in a particular state
+
+it will really test things w/o having to set up databases and 3rd party things
+
+we have covered spies which are a kind of mock.
+mocks are actually a type of test double - a generic term where u replace production object for testing purposes
+other test doubles are stubs, spies, mocks, ...
+
+https://martinfowler.com/bliki/TestDouble.html
+
+
+*/
 
 // ======================================================
 // tests
@@ -51,5 +69,16 @@ Go!`
 			t.Errorf("wanted calls %v got %v", want, spySleepPrinter.Calls)
 		}
 	})
+}
 
+func TestConfigurableSleeper(t *testing.T) {
+	sleepTime := 5 * time.Second
+
+	spyTime := &SpyTime{}
+	sleeper := ConfigurableSleeper{sleepTime, spyTime.Sleep}
+	sleeper.Sleep()
+
+	if spyTime.durationSlept != sleepTime {
+		t.Errorf("should have slept for %v but slept for %v", sleepTime, spyTime.durationSlept)
+	}
 }
