@@ -54,6 +54,10 @@ func (d Dictionary) Update(word, newDefinition string) error {
 	return nil
 }
 
+func (d Dictionary) Delete(word string) {
+	delete(d, word) // built-in function that works on maps. first is the map, second is the key to be removed
+}
+
 // gross map caveats
 // maps can be nil, which behaves like an empty map when reading. attempt to write to a nil map causes runtime panic
 // never initialize a nil map variable

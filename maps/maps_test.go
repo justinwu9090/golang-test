@@ -60,6 +60,17 @@ func TestUpdate(t *testing.T) {
 	assertDefinition(t, dictionary, word, newDefinition)
 }
 
+func TestDelete(t *testing.T) {
+	word := "test"
+	definition := "this is just a test"
+	dictionary := Dictionary{word: definition}
+	dictionary.Delete(word)
+
+	_, err := dictionary.Search(word)
+
+	assertError(t, err, ErrNotFound)
+}
+
 // ========================================================================
 // helper functions
 // ========================================================================
