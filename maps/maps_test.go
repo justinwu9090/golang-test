@@ -2,6 +2,9 @@ package main
 
 import "testing"
 
+// ========================================================================
+// tests
+// ========================================================================
 func TestSearch(t *testing.T) {
 	dictionary := Dictionary{"test": "this is just a test"}
 	t.Run("known word", func(t *testing.T) {
@@ -45,6 +48,21 @@ func TestAdd(t *testing.T) {
 	})
 
 }
+
+func TestUpdate(t *testing.T) {
+	word := "test"
+	definition := "this is just a test"
+	dictionary := Dictionary{word: definition}
+	newDefinition := "new definition"
+
+	dictionary.Update(word, newDefinition)
+
+	assertDefinition(t, dictionary, word, newDefinition)
+}
+
+// ========================================================================
+// helper functions
+// ========================================================================
 
 func assertDefinition(t testing.TB, dictionary Dictionary, word, definition string) {
 	t.Helper()
