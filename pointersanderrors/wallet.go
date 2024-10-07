@@ -1,6 +1,8 @@
 package Wallet
 
-type Bitcoin int // creating type
+import "fmt"
+
+type Bitcoin int // creating type from existing data types
 
 type Wallet struct {
 	balance Bitcoin
@@ -16,4 +18,14 @@ func (w *Wallet) Deposit(amount Bitcoin) {
 
 func (w *Wallet) Balance() Bitcoin {
 	return w.balance // explicit dereference is done here
+}
+
+// define withdraw method on type wallet
+func (w *Wallet) Withdraw(amount Bitcoin) {
+	w.balance -= amount
+}
+
+// define String() method on bitcoin type.
+func (b Bitcoin) String() string {
+	return fmt.Sprintf("%d BTC", b)
 }
