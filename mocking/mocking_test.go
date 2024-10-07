@@ -6,23 +6,14 @@ import (
 )
 
 // goal:
-
 // print 3
-
 // print 3,2,1 and go!
-
 // wait a second between each line
-
 // spys are a kind of "mock" which can record how a dependency is used. They can record the arguments sent in, how many times it's called, etc.. in our case, we keep track how many times Sleep() is called so we can check it in our test.
 
-type SpySleeper struct {
-	Calls int
-}
-
-func (s *SpySleeper) Sleep() {
-	s.Calls++
-}
-
+// ======================================================
+// tests
+// ======================================================
 func TestCountDown(t *testing.T) {
 	buffer := &bytes.Buffer{}
 	spySleeper := &SpySleeper{}
