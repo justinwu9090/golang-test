@@ -29,6 +29,10 @@ func TestCheckWebsites(t *testing.T) {
 	}
 }
 
+// ======================================================
+// benchmark
+// ======================================================
+
 func slowStubWebsiteChecker(_ string) bool {
 	time.Sleep(20 * time.Millisecond)
 	return true
