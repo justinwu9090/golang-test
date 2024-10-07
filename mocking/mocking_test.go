@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 )
 
@@ -33,4 +34,22 @@ Go!`
 	if spySleeper.Calls != 3 {
 		t.Errorf("not enough calls to sleeper, want %d got %d", countdownStart, spySleeper.Calls)
 	}
+
+	t.Run("sleep before every p rint", func(t *testing.T) {
+		spySleepPrinter := &SpyCountdownOperations{}
+		Countdown(spySleepPrinter, spySleepPrinter)
+		want := []string{
+			write,
+			sleep,
+			write,
+			sleep,
+			write,
+			sleep,
+			write,
+		}
+		if !reflect.DeepEqual(want, spySleepPrinter.Calls) {
+			t.Errorf("wanted calls %v got %v", want, spySleepPrinter.Calls)
+		}
+	})
+
 }

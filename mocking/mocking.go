@@ -66,6 +66,17 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 
 }
 
+// func Countdown(out io.Writer, sleeper Sleeper) {
+// 	for i := countdownStart; i > 0; i-- {
+// 		sleeper.Sleep()
+// 	}
+
+// 	for i := countdownStart; i > 0; i-- {
+// 		fmt.Fprintln(out, i)
+// 	}
+// 	fmt.Fprint(out, finalWord)
+// }
+
 // so the difference here is that sleeper implements the Sleep() through time.sleep while spySleeper implements Sleep() through spySleeper.
 func main() {
 	sleeper := &DefaultSleeper{}
