@@ -1,6 +1,9 @@
 package concurrency
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func mockWebsiteChecker(url string) bool {
 	return url != "waat://furhurterwe.geds"
@@ -20,7 +23,7 @@ func TestCheckWebsites(t *testing.T) {
 	}
 	got := CheckWebsites(mockWebsiteChecker, websites)
 
-	if !reflect.DepEqual(want, got) {
+	if !reflect.DeepEqual(want, got) {
 		t.Fatalf("wanted %v, got %v", want, got)
 	}
 }
