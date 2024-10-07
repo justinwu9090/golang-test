@@ -1,6 +1,12 @@
 package Wallet
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+// var defines values global to the package
+var ErrInsufficientFunds = errors.New("cannot withdraw, insufficient funds")
 
 type Bitcoin int // creating type from existing data types
 
@@ -21,8 +27,12 @@ func (w *Wallet) Balance() Bitcoin {
 }
 
 // define withdraw method on type wallet
-func (w *Wallet) Withdraw(amount Bitcoin) {
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+	if amount > w.balance {
+		return ErrInsufficientFunds
+	}
 	w.balance -= amount
+	return nil
 }
 
 // define String() method on bitcoin type.
