@@ -6,6 +6,7 @@ import (
 )
 
 func TestWalk(t *testing.T) {
+
 	cases := []struct {
 		Name          string
 		Input         interface{}
@@ -13,6 +14,13 @@ func TestWalk(t *testing.T) {
 	}{
 		{
 			"struct with one string field",
+			struct {
+				Name string
+			}{"Chris"},
+			[]string{"Chris"},
+		},
+		{
+			"struct with two string fields",
 			struct {
 				Name string
 				City string
@@ -28,7 +36,7 @@ func TestWalk(t *testing.T) {
 				got = append(got, input)
 			})
 
-			if reflect.DeepEqual(got, test.ExpectedCalls) {
+			if !reflect.DeepEqual(got, test.ExpectedCalls) {
 				t.Errorf("got %v, want %v", got, test.ExpectedCalls)
 			}
 		})
