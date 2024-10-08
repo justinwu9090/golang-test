@@ -15,6 +15,14 @@ type Profile struct {
 	City string
 }
 
+/*
+	 reflection test cases to cover:
+		1. basic strings
+		2. non-strings ignored
+		3. nested structs
+		4. pointers inside struct
+		5. slices
+*/
 func TestWalk(t *testing.T) {
 
 	cases := []struct {
@@ -60,6 +68,14 @@ func TestWalk(t *testing.T) {
 				Profile{33, "London"},
 			},
 			[]string{"Chris", "London"},
+		},
+		{
+			"slices",
+			[]Profile{
+				{33, "London"},
+				{34, "Reykjavík"},
+			},
+			[]string{"London", "Reykjavík"},
 		},
 	}
 
