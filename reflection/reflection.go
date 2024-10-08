@@ -18,6 +18,10 @@ func walk(x interface{}, fn func(string)) {
 		if field.Kind() == reflect.String {
 			fn(field.String())
 		}
+		// recursive walk through nested structs
+		if field.Kind() == reflect.Struct {
+			walk(field.Interface(), fn)
+		}
 
 	}
 }
