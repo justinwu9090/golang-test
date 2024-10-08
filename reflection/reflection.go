@@ -10,12 +10,7 @@ import "reflect"
 // interface{} loses the type safety but now can use "any" type that you don't know at compile time.
 
 func walk(x interface{}, fn func(string)) {
-	val := reflect.ValueOf(x) //reflect package func that returns a Value of a given variable.
-
-	// handle if the value is a pointer
-	if val.Kind() == reflect.Pointer {
-		val = val.Elem()
-	}
+	val := getValue(x)
 	for i := 0; i < val.NumField(); i++ {
 		field := val.Field(i)
 
@@ -27,4 +22,13 @@ func walk(x interface{}, fn func(string)) {
 		}
 
 	}
+}
+
+func getValue(x interface{}) reflect.Value {
+	val := reflect.ValueOf(x)
+
+	if val.Kind() == reflect.Pointer {
+		val = val.Elem()
+	}
+	return val
 }
