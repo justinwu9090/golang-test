@@ -22,6 +22,7 @@ type Profile struct {
 		3. nested structs
 		4. pointers inside struct
 		5. slices
+		6. arrays
 */
 func TestWalk(t *testing.T) {
 
@@ -72,6 +73,14 @@ func TestWalk(t *testing.T) {
 		{
 			"slices",
 			[]Profile{
+				{33, "London"},
+				{34, "Reykjavík"},
+			},
+			[]string{"London", "Reykjavík"},
+		},
+		{
+			"arrays",
+			[2]Profile{
 				{33, "London"},
 				{34, "Reykjavík"},
 			},
