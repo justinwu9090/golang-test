@@ -11,7 +11,9 @@ import "reflect"
 
 func walk(x interface{}, fn func(string)) {
 	val := reflect.ValueOf(x) //reflect package func that returns a Value of a given variable.
-	// assumes: 1. look at first and only field
-	field := val.Field(0)
-	fn(field.String()) // 2. call String() which returns underlying value a sstring
+
+	for i := 0; i < val.NumField(); i++ {
+		field := val.Field(i)
+		fn(field.String())
+	}
 }
