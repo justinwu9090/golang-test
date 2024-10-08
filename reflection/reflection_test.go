@@ -7,7 +7,7 @@ import (
 
 type Person struct {
 	Name    string
-	Profile profile
+	Profile Profile
 }
 
 type Profile struct {
