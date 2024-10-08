@@ -12,6 +12,10 @@ import "reflect"
 func walk(x interface{}, fn func(string)) {
 	val := reflect.ValueOf(x) //reflect package func that returns a Value of a given variable.
 
+	// handle if the value is a pointer
+	if val.Kind() == reflect.Pointer {
+		val = val.Elem()
+	}
 	for i := 0; i < val.NumField(); i++ {
 		field := val.Field(i)
 
