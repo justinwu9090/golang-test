@@ -31,6 +31,16 @@ func walk(x interface{}, fn func(string)) {
 		for _, key := range val.MapKeys() {
 			walkValue(val.MapIndex(key))
 		}
+	case reflect.Chan:
+		// this is a while loop
+		for {
+			// if condition checks ok which is extracted out of the channel
+			if v, ok := val.Recv(); ok {
+				walkValue(v)
+			} else {
+				break
+			}
+		}
 	}
 
 }
