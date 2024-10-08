@@ -23,6 +23,7 @@ type Profile struct {
 		4. pointers inside struct
 		5. slices
 		6. arrays
+		7. maps (need to guarantee assertion in order somehow)
 */
 func TestWalk(t *testing.T) {
 
@@ -107,5 +108,35 @@ func TestWalk(t *testing.T) {
 				t.Errorf("got %v, want %v", got, test.ExpectedCalls)
 			}
 		})
+	}
+
+	t.Run("with maps", func(t *testing.T) {
+		aMap := map[string]string{
+			"Cow":   "Moo",
+			"Sheep": "Baa",
+		}
+
+		var got []string
+		walk(aMap, func(input string) {
+			got = append(got, input)
+		})
+
+		assertContains(t, got, "Moo")
+		assertContains(t, got, "Baa")
+	})
+}
+
+func assertContains(t testing.TB, haystack []string, needle string) {
+	t.Helper()
+	contains := false
+
+	for _, x := range haystack {
+		if x == needle {
+			contains = true
+			break
+		}
+	}
+	if !contains {
+		t.Errorf("expected %v to contain %q but it didn't", haystack, needle)
 	}
 }
