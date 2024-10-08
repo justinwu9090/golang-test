@@ -12,6 +12,9 @@ import "reflect"
 func walk(x interface{}, fn func(string)) {
 	val := getValue(x)
 	numberOfValues := 0
+	walkValue := func(value reflect.Value) {
+		walk(value.Interface(), fn)
+	}
 	var getField func(int) reflect.Value // stores func pointer either Field() or Index() which returns type reflect.Value
 	switch val.Kind() {
 	case reflect.String:
@@ -24,12 +27,12 @@ func walk(x interface{}, fn func(string)) {
 		getField = val.Index
 	case reflect.Map:
 		for _, key := range val.MapKeys() {
-			walk(val.MapIndex(key).Interface(), fn) //
+			walkValue(val.MapIndex(key))
 		}
 	}
 
 	for i := 0; i < numberOfValues; i++ {
-		walk(getField(i).Interface(), fn)
+		walkValue(getField(i))
 	}
 
 }
