@@ -6,7 +6,14 @@ import (
 	"time"
 )
 
+var tenSecondTimeout = 10 * time.Second
+
 func Racer(a, b string) (winner string, err error) {
+	// default tensecondTimeout using Racer
+	return ConfigurableRacer(a, b, tenSecondTimeout)
+}
+
+func ConfigurableRacer(a, b string, timeout time.Duration) (winner string, err error) {
 	// "select" will launch every case and only execute the case that returns first.
 	// this is a replacement for myVar := <-ch which is blocking for each val that comes out of the channel
 	select {
@@ -14,7 +21,7 @@ func Racer(a, b string) (winner string, err error) {
 		return a, nil
 	case <-ping(b):
 		return b, nil
-	case <-time.After(10 * time.Second):
+	case <-time.After(timeout):
 		return "", fmt.Errorf("timed out waiting for %s and %s", a, b)
 	}
 }
