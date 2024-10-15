@@ -1,12 +1,14 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestRomanNumerals(t *testing.T) {
 	cases := []struct {
-		Description string
-		Arabic      int
-		Roman       string
+		Arabic int
+		Roman  string
 	}{
 		{Arabic: 1, Roman: "I"},
 		{Arabic: 2, Roman: "II"},
@@ -40,7 +42,7 @@ func TestRomanNumerals(t *testing.T) {
 	}
 
 	for _, test := range cases {
-		t.Run(test.Description, func(t *testing.T) {
+		t.Run(fmt.Sprintf("%d gets converted to %s", test.Arabic, test.Roman), func(t *testing.T) {
 			got := ConvertToRoman(test.Arabic)
 			if got != test.Roman {
 				t.Errorf("got %q, want %q", got, test.Roman)
